@@ -1,4 +1,4 @@
-import 'package:ebadah/components/appbar_ebadah.dart';
+
 import 'package:ebadah/components/prayer_screen.dart';
 import 'package:ebadah/components/thumbnail.dart';
 import 'package:ebadah/theme/app_theme.dart';
@@ -9,8 +9,7 @@ import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class HomePage extends StatefulWidget {
-  final VoidCallback onToggleTheme;
-  HomePage({super.key, required this.onToggleTheme});
+  HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -26,13 +25,6 @@ class _HomePageState extends State<HomePage> {
     final theme = Theme.of(context);
 
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(100),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-          child: AppBarEbadah(onToggleTheme: widget.onToggleTheme),
-        ),
-      ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
@@ -223,23 +215,26 @@ class _HomePageState extends State<HomePage> {
                             'https://youtu.be/HePLLxVfn2Q?si=D-zRf3M4u1uJ2fqT',
                         thumbnailUrl:
                             'https://img.youtube.com/vi/HePLLxVfn2Q/maxresdefault.jpg',
+                        title: 'Promo Kajian',
                       ),
                       YoutubeThumbnail(
                         videoUrl:
                             'https://youtu.be/HePLLxVfn2Q?si=D-zRf3M4u1uJ2fqT',
                         thumbnailUrl:
                             'https://img.youtube.com/vi/HePLLxVfn2Q/maxresdefault.jpg',
+                        title: 'Promo Kajian',
                       ),
                       YoutubeThumbnail(
                         videoUrl:
                             'https://youtu.be/HePLLxVfn2Q?si=D-zRf3M4u1uJ2fqT',
                         thumbnailUrl:
                             'https://img.youtube.com/vi/HePLLxVfn2Q/maxresdefault.jpg',
+                        title: 'Promo Kajian',
                       ),
                     ],
                   ),
                 ),
-                SizedBox(height: 25),
+                SizedBox(height: 100),
               ],
             ),
           ],

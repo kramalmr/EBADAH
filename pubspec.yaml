@@ -17,6 +17,9 @@ dependencies:
   http: ^1.6.0
   smooth_page_indicator: ^2.0.1
   url_launcher: ^6.3.2
+  geolocator: ^14.0.2
+  geocoding: ^4.0.0
+  country_state_city: ^0.1.6
 
 dev_dependencies:
   flutter_test:
@@ -34,3 +37,4 @@ flutter:
     - "assets/posters/P3.jpg"
     - "assets/posters/P4.jpg"
     - "assets/posters/P5.jpg"
+    - "assets/doa_input.json"

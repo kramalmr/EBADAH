@@ -1,8 +1,13 @@
 import 'dart:convert';
+import 'package:ebadah/data/cityList.dart';
 import 'package:ebadah/theme/app_theme.dart';
+import 'package:ebadah/widgets/locateDialog.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
+import 'package:lucide_icons_flutter/lucide_icons.dart';
+import '../data/prayersData.dart';
+import '../data/userLocation.dart';
 
 class PrayerTimesScreen extends StatefulWidget {
   const PrayerTimesScreen({super.key});
@@ -16,15 +21,31 @@ class _PrayerTimesScreenState extends State<PrayerTimesScreen> {
   String hijriDate = "Loading...";
   String prayerMessage = "Loading...";
   String nextPrayerTime = "Loading...";
-  String nextPrayer = "Loading..";
-  String estimationTime = "Loading...";
+  String nextPrayer = "...";
+  String estimationTime = "...";
 
   @override
   void initState() {
     super.initState();
     fetchHijriDate();
     fetchPrayerTimes();
+    // setLocationAndFetchPrayerTimes();
   }
+
+  // Future<void> setLocationAndFetchPrayerTimes() async {
+  //   try {
+  //     final location = await getUserLocation();
+  //     setState(() {
+  //       city = location["city"]!;
+  //       country = location["country"]!;
+  //     });
+  //     fetchPrayerTimes();
+  //   } catch (e) {
+  //     setState(() {
+  //       prayerMessage = "...";
+  //     });
+  //   }
+  // }
 
   Future<void> fetchHijriDate() async {
     final response = await http.get(
@@ -50,7 +71,7 @@ class _PrayerTimesScreenState extends State<PrayerTimesScreen> {
   Future<void> fetchPrayerTimes() async {
     final response = await http.get(
       Uri.parse(
-        "https://api.aladhan.com/v1/timingsByCity?city=Jakarta&country=Indonesia&method=2",
+        "https://api.aladhan.com/v1/timingsByCity?city=${cityData}&country=${countryData}&method=2",
       ),
     );
 
@@ -58,13 +79,11 @@ class _PrayerTimesScreenState extends State<PrayerTimesScreen> {
       final data = jsonDecode(response.body);
       final timings = data['data']['timings'];
 
-      Map<String, String> prayers = {
-        "Subuh": timings["Fajr"],
-        "Zuhur": timings["Dhuhr"],
-        "Ashar": timings["Asr"],
-        "Maghrib": timings["Maghrib"],
-        "Isya'": timings["Isha"],
-      };
+      prayers["Subuh"] = timings["Fajr"];
+      prayers["Zuhur"] = timings["Dhuhr"];
+      prayers["Ashar"] = timings["Asr"];
+      prayers["Maghrib"] = timings["Maghrib"];
+      prayers["Isya'"] = timings["Isha"];
 
       DateTime now = DateTime.now();
       String? upcoming;
@@ -96,6 +115,7 @@ class _PrayerTimesScreenState extends State<PrayerTimesScreen> {
           upcoming = "Menjelang waktu ${entry.key}";
           nextPrayerTime = entry.value;
           nextPrayer = entry.key;
+          nextPrayerData = entry.key;
           break;
         }
       }
@@ -168,6 +188,103 @@ class _PrayerTimesScreenState extends State<PrayerTimesScreen> {
                     ),
                   ),
                 ],
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class PrayerLocation extends StatefulWidget {
+  const PrayerLocation({super.key});
+
+  @override
+  State<PrayerLocation> createState() => _PrayerLocationState();
+}
+
+class _PrayerLocationState extends State<PrayerLocation> {
+  // String currentCity = "Jakarta";
+  // String currentCountry = "Indonesia";
+
+  // Future<void> refreshLocation() async {
+  //   final location = await getUserLocation();
+  //   setState(() {
+  //     currentCity = location["city"]!;
+  //     currentCountry = location["country"]!;
+  //   });
+  // }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    String capitalize(String s) {
+      if (s.isEmpty) return s;
+      return s[0].toUpperCase() + s.substring(1);
+    }
+
+    void _openDialog() async {
+      final result = await showLocateDialog(context);
+
+      if (result != null && result.trim().isNotEmpty) {
+        final normalizedCity = capitalize(result.trim());
+
+        if (indonesianCities.contains(normalizedCity)) {
+          print("Valid Indonesian city: $normalizedCity");
+          setState(() {
+            cityData = normalizedCity;
+          });
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                "Kota diubah ke $cityData",
+                style: GoogleFonts.inter(),
+              ),
+              backgroundColor: theme.colorScheme.primary,
+            ),
+          );
+        } else {
+          print("Invalid city entered: $normalizedCity");
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                "Kota tidak ditemukan di Indonesia",
+                style: GoogleFonts.inter(),
+              ),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      } else {
+        print("Dialog cancelled or empty input");
+      }
+    }
+
+    return Column(
+      spacing: 5,
+      children: [
+        Text("Waktu tidak sesuai? Ubah Lokasi!", style: GoogleFonts.inter()),
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            elevation: 0,
+            backgroundColor: theme.colorScheme.surface,
+            side: BorderSide(color: theme.colorScheme.primary),
+          ),
+          onPressed: () {
+            _openDialog();
+          },
+          child: Row(
+            spacing: 10,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(LucideIcons.locate, color: theme.colorScheme.primary),
+              Text(
+                "$cityData, $countryData",
+                style: GoogleFonts.inter(
+                  color: theme.colorScheme.primary,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ],
           ),

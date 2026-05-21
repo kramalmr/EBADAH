@@ -24,6 +24,7 @@ class _AppBarEbadahState extends State<AppBarEbadah> {
       isDarkLocal = !isDarkLocal;
     });
   }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +66,7 @@ class _AppBarEbadahState extends State<AppBarEbadah> {
     }
 
     return AppBar(
+      
       backgroundColor: theme.scaffoldBackgroundColor,
       title: Row(
         spacing: 5,
