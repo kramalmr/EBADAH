@@ -1,4 +1,3 @@
-
 import 'package:ebadah/components/prayer_screen.dart';
 import 'package:ebadah/components/thumbnail.dart';
 import 'package:ebadah/theme/app_theme.dart';
@@ -9,7 +8,8 @@ import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({super.key});
+  final Function(int) onNavigate;
+  HomePage({super.key, required this.onNavigate});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -41,7 +41,7 @@ class _HomePageState extends State<HomePage> {
                       Expanded(
                         child: InkWell(
                           onTap: () {
-                            print("Custom container button tapped!");
+                            widget.onNavigate(1);
                           },
                           borderRadius: BorderRadius.circular(16),
                           splashColor: AppColors.darkGreen,
@@ -98,7 +98,7 @@ class _HomePageState extends State<HomePage> {
                       Expanded(
                         child: InkWell(
                           onTap: () {
-                            print("Custom container button tapped!");
+                            widget.onNavigate(3);
                           },
                           borderRadius: BorderRadius.circular(16),
                           splashColor: AppColors.darkGreen,

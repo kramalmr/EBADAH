@@ -20,6 +20,7 @@ dependencies:
   geolocator: ^14.0.2
   geocoding: ^4.0.0
   country_state_city: ^0.1.6
+  icons_launcher: ^3.1.0
 
 dev_dependencies:
   flutter_test:
@@ -38,3 +39,11 @@ flutter:
     - "assets/posters/P4.jpg"
     - "assets/posters/P5.jpg"
     - "assets/doa_input.json"
+
+icons_launcher:
+  image_path: "assets/iconEbadah.png"
+  platforms:
+    android:
+      enable: true
+    ios:
+      enable: true

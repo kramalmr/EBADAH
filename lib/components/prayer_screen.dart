@@ -205,16 +205,16 @@ class PrayerLocation extends StatefulWidget {
 }
 
 class _PrayerLocationState extends State<PrayerLocation> {
-  // String currentCity = "Jakarta";
-  // String currentCountry = "Indonesia";
+  String currentCity = "Jakarta";
+  String currentCountry = "Indonesia";
 
-  // Future<void> refreshLocation() async {
-  //   final location = await getUserLocation();
-  //   setState(() {
-  //     currentCity = location["city"]!;
-  //     currentCountry = location["country"]!;
-  //   });
-  // }
+  Future<void> refreshLocation() async {
+    final location = await getUserLocation();
+    setState(() {
+      currentCity = location["city"]!;
+      currentCountry = location["country"]!;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -265,29 +265,79 @@ class _PrayerLocationState extends State<PrayerLocation> {
       spacing: 5,
       children: [
         Text("Waktu tidak sesuai? Ubah Lokasi!", style: GoogleFonts.inter()),
-        ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            elevation: 0,
-            backgroundColor: theme.colorScheme.surface,
-            side: BorderSide(color: theme.colorScheme.primary),
-          ),
-          onPressed: () {
-            _openDialog();
-          },
-          child: Row(
-            spacing: 10,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(LucideIcons.locate, color: theme.colorScheme.primary),
-              Text(
-                "$cityData, $countryData",
-                style: GoogleFonts.inter(
-                  color: theme.colorScheme.primary,
-                  fontWeight: FontWeight.w500,
-                ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                elevation: 0,
+                backgroundColor: theme.colorScheme.surface,
+                side: BorderSide(color: theme.colorScheme.primary),
               ),
-            ],
-          ),
+              onPressed: () {
+                _openDialog();
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                spacing: 10,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(LucideIcons.locate, color: theme.colorScheme.primary),
+                  Text(
+                    "$cityData, $countryData",
+                    style: GoogleFonts.inter(
+                      color: theme.colorScheme.primary,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            IconButton(
+              style: IconButton.styleFrom(
+                side: BorderSide(color: theme.colorScheme.primary),
+                backgroundColor: theme.colorScheme.surface,
+              ),
+              icon: Icon(
+                LucideIcons.refreshCcw,
+                size: 16,
+                color: theme.colorScheme.primary,
+              ),
+              onPressed: () {
+                refreshLocation();
+                final normalizedCity = capitalize(currentCity.trim());
+                if (indonesianCities.contains(normalizedCity)) {
+                  print("Valid Indonesian city: $normalizedCity");
+                  setState(() {
+                    cityData = normalizedCity;
+                  });
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        "Kota diubah ke $cityData",
+                        style: GoogleFonts.inter(),
+                      ),
+                      backgroundColor: theme.colorScheme.primary,
+                    ),
+                  );
+                } else {
+                  print("Invalid city entered: $normalizedCity");
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        "Kota tidak ditemukan di Indonesia",
+                        style: GoogleFonts.inter(),
+                      ),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
+                }
+                cityData = currentCity;
+              },
+            ),
+          ],
         ),
       ],
     );

@@ -1,15 +1,16 @@
+import 'package:ebadah/pages/qibla.dart';
+import 'package:flutter/material.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:ebadah/components/appbar_ebadah.dart';
 import 'package:ebadah/model/doa_services.dart';
 import 'package:ebadah/pages/doa.dart';
 import 'package:ebadah/pages/home.dart';
 import 'package:ebadah/pages/prayers.dart';
-import 'package:flutter/material.dart';
 import 'package:ebadah/theme/app_theme.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  DoaService().insertDummyData();
+  DoaService().seedDoaData();
 
   runApp(const MainApp());
 }
@@ -37,55 +38,50 @@ class _MainAppState extends State<MainApp> {
     });
   }
 
-  BottomNavigationBarItem _buildNavItem(
-    IconData icon,
-    int index,
-    String label,
-  ) {
+  Widget _buildNavItem(IconData icon, int index, String label) {
     final bool isSelected = selectedIndex == index;
-    return BottomNavigationBarItem(
-      label: label,
-      icon: Stack(
-        children: [
-          SizedBox(
-            height: 50,
-            width: 50,
-            child: Container(
-              padding: EdgeInsets.symmetric(vertical: 12),
-              width: 50,
-              decoration: BoxDecoration(
-                color: isSelected
-                    ? AppColors.darkGreen.withOpacity(0.2)
-                    : Colors.transparent,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Center(
-                child: Icon(
-                  icon,
-                  color: isSelected ? AppColors.darkGreen : AppColors.gray,
-                ),
+    return GestureDetector(
+      onTap: () => _onItemTapped(index),
+      child: AnimatedContainer(
+        height: 50,
+        width: 50,
+        duration: const Duration(milliseconds: 200),
+        decoration: BoxDecoration(
+          color: isSelected
+              ? AppColors.darkGreen.withOpacity(0.15)
+              : Colors.transparent,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Stack(
+          children: [
+            Center(
+              child: Icon(
+                icon,
+                color: isSelected ? AppColors.darkGreen : AppColors.gray,
               ),
             ),
-          ),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: Container(
-                height: 5,
-                decoration: BoxDecoration(
-                  color: isSelected ? AppColors.darkGreen : Colors.transparent,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(12),
-                    topRight: Radius.circular(12),
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Container(
+                  height: 5,
+                  decoration: BoxDecoration(
+                    color: isSelected
+                        ? AppColors.darkGreen
+                        : Colors.transparent,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(12),
+                      topRight: Radius.circular(12),
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -94,22 +90,20 @@ class _MainAppState extends State<MainApp> {
   Widget build(BuildContext context) {
     final theme = isDark ? AppTheme.dark : AppTheme.light;
     List<Widget> _pages = <Widget>[
-      HomePage(),
+      HomePage(onNavigate: _onItemTapped),
       PrayersPage(),
-      DoaPage(),
-      Center(child: Text('Library Page')),
+      DoaScreen(),
+      QiblaPage(),
     ];
 
     return MaterialApp(
       title: 'EBADAH',
       debugShowCheckedModeBanner: false,
-      theme: isDark ? AppTheme.dark : AppTheme.light,
-
+      theme: theme,
       home: Scaffold(
         extendBody: true,
-
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(100),
+          preferredSize: const Size.fromHeight(100),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
             child: AppBarEbadah(onToggleTheme: toggleTheme),
@@ -121,40 +115,22 @@ class _MainAppState extends State<MainApp> {
           margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           decoration: BoxDecoration(
             color: theme.colorScheme.surface,
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(20),
             border: Border.all(
               color: theme.colorScheme.primary.withOpacity(0.7),
               width: 1.5,
             ),
           ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(30),
-            child: BottomNavigationBar(
-              type: BottomNavigationBarType.fixed,
-              elevation: 0,
-              backgroundColor: Colors.transparent,
-              showSelectedLabels: false,
-              showUnselectedLabels: false,
-              currentIndex: selectedIndex,
-              onTap: _onItemTapped,
-              selectedItemColor: Colors.green,
-              unselectedItemColor: Colors.grey,
-              items: [
-                _buildNavItem(LucideIcons.house, 0, "Home"),
-                _buildNavItem(LucideIcons.clock, 1, "Waktu Sholat"),
-                _buildNavItem(LucideIcons.book, 2, "Amalan"),
-                _buildNavItem(LucideIcons.compass, 3, "Kiblat"),
-              ],
-            ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              _buildNavItem(LucideIcons.house, 0, "Home"),
+              _buildNavItem(LucideIcons.clock, 1, "Waktu Sholat"),
+              _buildNavItem(LucideIcons.book, 2, "Amalan"),
+              _buildNavItem(LucideIcons.compass, 3, "Kiblat"),
+            ],
           ),
         ),
-
-        // floatingActionButton: FloatingActionButton(
-        //   onPressed: () {},
-        //   backgroundColor: Colors.green,
-        //   child: const Icon(Icons.add),
-        // ),
-        // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       ),
     );
   }
