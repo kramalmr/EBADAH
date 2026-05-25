@@ -5,6 +5,17 @@ EBADAH helps users access daily prayers, dzikir, and Islamic content in a clean 
 
 ---
 
+## 📱 App Preview
+
+<p align="center">
+  <img src="screenshots/home.png" width="22%" />
+  <img src="screenshots/prayer_time.png" width="22%" />
+  <img src="screenshots/doa_page.png" width="22%" />
+  <img src="screenshots/qibla.png" width="22%" />
+</p>
+
+---
+
 ## ✨ Features
 
 - 📖 Daily Doa Collection
@@ -113,10 +124,10 @@ build/app/outputs/flutter-apk/app-release.apk
 
 ## 👨‍💻 Developer
 
-Made with Flutter by **Muhammad Akram**
+Made with Flutter by **Muhammad Akram Almair**
 
 ---
 
 ## 📄 License
 
-This project is solely for educational (final project 11th grade) and portfolio purposes.
+This project is for educational (final project of 11th grade) and portfolio purposes.
