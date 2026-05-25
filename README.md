@@ -8,10 +8,10 @@ EBADAH helps users access daily prayers, dzikir, and Islamic content in a clean 
 ## 📱 App Preview
 
 <p align="center">
-  <img src="screenshots/home.png" width="22%" />
-  <img src="screenshots/prayer_time.png" width="22%" />
-  <img src="screenshots/doa_page.png" width="22%" />
-  <img src="screenshots/qibla.png" width="22%" />
+  <img src="assets/screenshots/home.png" width="22%" />
+  <img src="assets/screenshots/prayer_time.png" width="22%" />
+  <img src="assets/screenshots/doa_page.png" width="22%" />
+  <img src="assets/screenshots/qibla.png" width="22%" />
 </p>
 
 ---
