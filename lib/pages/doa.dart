@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
-class DoaScreen extends StatefulWidget {
-  const DoaScreen({super.key});
+class DoaPage extends StatefulWidget {
+  const DoaPage({super.key});
 
   @override
-  State<DoaScreen> createState() => _DoaScreenState();
+  State<DoaPage> createState() => _DoaPageState();
 }
 
-class _DoaScreenState extends State<DoaScreen> {
+class _DoaPageState extends State<DoaPage> {
   final DoaService _doaService = DoaService();
   Map<String, List<DoaModel>> groupedDoa = {};
 

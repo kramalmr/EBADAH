@@ -31,6 +31,13 @@ class DatabaseHelper {
     translation TEXT NOT NULL
   )
 ''');
+    await db.execute('''
+    CREATE TABLE location (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      city TEXT NOT NULL,
+      country TEXT NOT NULL
+    )
+  ''');
   }
 
   Future close() async {
@@ -46,6 +53,4 @@ class DatabaseHelper {
     await deleteDatabase(path); // hapus file database lama
     _database = await _initDB('doa.db'); // buat ulang
   }
-
 }
-

@@ -92,7 +92,7 @@ class _MainAppState extends State<MainApp> {
     List<Widget> _pages = <Widget>[
       HomePage(onNavigate: _onItemTapped),
       PrayersPage(),
-      DoaScreen(),
+      DoaPage(),
       QiblaPage(),
     ];
 
