@@ -1,11 +1,11 @@
 # EBADAH
 
-A modern Islamic worship companion app built with Flutter.  
-EBADAH helps users access daily prayers, dzikir, and Islamic content in a clean and organized mobile experience.
+Aplikasi pendamping ibadah Islami modern yang dibuat menggunakan Flutter.  
+EBADAH membantu pengguna mengakses doa harian, dzikir, dan konten Islami dalam pengalaman mobile yang bersih dan terorganisir.
 
 ---
 
-## 📱 App Preview
+## 📱 Tampilan Aplikasi
 
 <p align="center">
   <img src="assets/screenshots/home.png" width="22%" />
@@ -16,30 +16,30 @@ EBADAH helps users access daily prayers, dzikir, and Islamic content in a clean 
 
 ---
 
-## ✨ Features
+## ✨ Fitur
 
-- 📖 Daily Doa Collection
-- 🤲 Dzikir & Prayer Content
-- 🗂️ Organized Categories
-- 💾 Local Database Storage (SQLite)
-- ⚡ Fast Offline Access
-- 🎨 Clean Flutter UI
-- 🔍 Search & Browse Experience
-- 📱 Responsive Mobile Layout
+- 📖 Koleksi Doa Harian
+- 🤲 Konten Dzikir & Doa
+- 🗂️ Kategori yang Terorganisir
+- 💾 Penyimpanan Database Lokal (SQLite)
+- ⚡ Akses Offline Cepat
+- 🎨 Tampilan Flutter yang Modern
+- 🔍 Fitur Pencarian & Penjelajahan
+- 📱 Layout Responsif untuk Mobile
 
 ---
 
-## 🛠️ Tech Stack
+## 🛠️ Teknologi yang Digunakan
 
 - Flutter
 - Dart
 - SQLite
-- JSON Local Data
+- Data Lokal JSON
 - Material Design
 
 ---
 
-## 📂 Project Structure
+## 📂 Struktur Project
 
 ```bash
 lib/
@@ -56,20 +56,20 @@ lib/
 
 ---
 
-## 🗄️ Database Flow
+## 🗄️ Alur Database
 
-The application uses:
+Aplikasi menggunakan:
 
-- `doa_input.json` → dummy/local prayer data
-- `database_helper.dart` → SQLite database & table creation
-- `doa_service.dart` → insert and fetch data
-- `doa_model.dart` → prayer data model
+- `doa_input.json` → data dummy/local doa
+- `database_helper.dart` → pembuatan database & tabel SQLite
+- `doa_service.dart` → insert dan mengambil data
+- `doa_model.dart` → model data doa
 
-Data from JSON is inserted into the local SQLite database and displayed dynamically inside the app.
+Data dari file JSON dimasukkan ke database SQLite lokal dan ditampilkan secara dinamis di dalam aplikasi.
 
 ---
 
-## 🚀 Getting Started
+## 🚀 Cara Menjalankan Project
 
 ### 1. Clone Repository
 
@@ -77,7 +77,7 @@ Data from JSON is inserted into the local SQLite database and displayed dynamica
 git clone https://github.com/kramalmr/EBADAH.git
 ```
 
-### 2. Open Project
+### 2. Masuk ke Folder Project
 
 ```bash
 cd EBADAH
@@ -89,7 +89,7 @@ cd EBADAH
 flutter pub get
 ```
 
-### 4. Run Application
+### 4. Jalankan Aplikasi
 
 ```bash
 flutter run
@@ -103,7 +103,7 @@ flutter run
 flutter build apk
 ```
 
-Generated APK:
+Lokasi APK hasil build:
 
 ```bash
 build/app/outputs/flutter-apk/app-release.apk
@@ -111,23 +111,23 @@ build/app/outputs/flutter-apk/app-release.apk
 
 ---
 
-## 🎯 Future Improvements
+## 🎯 Pengembangan Selanjutnya
 
-- 🔔 Prayer Time Notifications
+- 🔔 Notifikasi Waktu Sholat
 - 🌙 Dark Mode
-- ☁️ Cloud Sync
-- 📚 More Islamic Content
-- 🔊 Audio Prayer Support
-- ❤️ Favorite Doa Feature
+- ☁️ Sinkronisasi Cloud
+- 📚 Penambahan Konten Islami
+- 🔊 Dukungan Audio Doa
+- ❤️ Fitur Doa Favorit
 
 ---
 
 ## 👨‍💻 Developer
 
-Made with Flutter by **Muhammad Akram Almair**
+Dibuat menggunakan Flutter oleh **Muhammad Akram Almair**
 
 ---
 
-## 📄 License
+## 📄 Lisensi
 
-This project is for educational (final project of 11th grade) and portfolio purposes.
+Project ini dibuat untuk keperluan edukasi (tugas akhir kelas 11) dan portofolio.
